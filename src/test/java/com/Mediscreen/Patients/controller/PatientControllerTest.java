@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.BindingResult;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -146,6 +147,21 @@ public class PatientControllerTest {
     }
 
     @Test
+    void testCreatePatient_HasErrors() throws Exception {
+        // Setup
+        when(mockPatientService.getPatientById(0)).thenReturn(patientUnderTest());
+
+        // Run the test
+        final MockHttpServletResponse response = mockMvc.perform(post("/patient/add")
+                        .content(jsonToString(patientUnderTest())).contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        // Verify the results
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+    }
+
+    @Test
     void testUpdatePatient() throws Exception {
         // Setup
         when(mockPatientService.getPatientById(0)).thenReturn(patientUnderTest());
@@ -206,5 +222,4 @@ public class PatientControllerTest {
         // Verify the results
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
-
 }

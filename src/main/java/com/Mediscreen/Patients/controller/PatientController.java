@@ -46,12 +46,14 @@ public class PatientController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> createPatient(@RequestBody Patient patient, BindingResult result) {
-        ResponseEntity<?> errors = getBindingResultErrors(result);
-        if (errors != null) return errors;
-        Patient newPatient = patientService.savePatient(patient);
-        LOGGER.info("New Patient, {} {}, created with id: " + newPatient.getId(), patient.getLastName(), patient.getFirstName());
-        return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
+    public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
+        if (patientService.getPatientById(patient.getId()) == null) {
+            patientService.savePatient(patient);
+            LOGGER.info("New Patient, {} {}, created with id: " + patient.getId(), patient.getLastName(), patient.getFirstName());
+            return new ResponseEntity<>(patient, HttpStatus.CREATED);
+        }
+        LOGGER.error("Patient failed to be created because he already exists !");
+        return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")
@@ -76,18 +78,5 @@ public class PatientController {
         }
         LOGGER.error("Failed to delete patient because of a BAD REQUEST");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
-
-    private ResponseEntity<?> getBindingResultErrors(BindingResult result) {
-        if (result.hasErrors()) {
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            List<String> messages = new ArrayList<>();
-            for (FieldError error : fieldErrors) {
-                messages.add(error.getDefaultMessage());
-            }
-            LOGGER.error("Error message: " + messages);
-            return new ResponseEntity<>(messages, HttpStatus.BAD_REQUEST);
-        }
-        return null;
     }
 }
