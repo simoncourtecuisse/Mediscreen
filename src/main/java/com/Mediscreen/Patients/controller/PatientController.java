@@ -1,7 +1,6 @@
 package com.Mediscreen.Patients.controller;
 
 import com.Mediscreen.Patients.model.Patient;
-import com.Mediscreen.Patients.service.AddressService;
 import com.Mediscreen.Patients.service.PatientService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,8 +21,6 @@ public class PatientController {
     Logger LOGGER = LogManager.getLogger(PatientController.class);
     @Autowired
     PatientService patientService;
-    @Autowired
-    AddressService addressService;
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllPatients() {

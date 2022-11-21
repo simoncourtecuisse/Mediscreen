@@ -1,6 +1,5 @@
 package com.Mediscreen.Patients.service;
 
-import com.Mediscreen.Patients.model.Address;
 import com.Mediscreen.Patients.model.Patient;
 import com.Mediscreen.Patients.repository.PatientRepository;
 import org.apache.logging.log4j.LogManager;
@@ -19,9 +18,6 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    @Autowired
-    private AddressService addressService;
-
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
@@ -32,15 +28,15 @@ public class PatientService {
     }
 
     public Patient savePatient(Patient patient) {
-        Address address = new Address();
-
-        address.setStreet(patient.getAddress().getStreet());
-        address.setCity(patient.getAddress().getCity());
-        address.setZipCode(patient.getAddress().getZipCode());
-        address.setState(patient.getAddress().getState());
-        address.setCountry(patient.getAddress().getCountry());
-
-        patient.setAddress(address);
+//        Address address = new Address();
+//
+//        address.setStreet(patient.getAddress().getStreet());
+//        address.setCity(patient.getAddress().getCity());
+//        address.setZipCode(patient.getAddress().getZipCode());
+//        address.setState(patient.getAddress().getState());
+//        address.setCountry(patient.getAddress().getCountry());
+//
+//        patient.setAddress(address);
 
         return patientRepository.save(patient);
     }
@@ -50,16 +46,16 @@ public class PatientService {
         if (updateP.isEmpty()) {
             return null;
         }
-
-        Address address = addressService.getAddressById(patient.getAddress().getId());
-
-        address.setStreet(patient.getAddress().getStreet());
-        address.setCity(patient.getAddress().getCity());
-        address.setZipCode(patient.getAddress().getZipCode());
-        address.setState(patient.getAddress().getState());
-        address.setCountry(patient.getAddress().getCountry());
-
-        patient.setAddress(address);
+//
+//        Address address = addressService.getAddressById(patient.getAddress().getId());
+//
+//        address.setStreet(patient.getAddress().getStreet());
+//        address.setCity(patient.getAddress().getCity());
+//        address.setZipCode(patient.getAddress().getZipCode());
+//        address.setState(patient.getAddress().getState());
+//        address.setCountry(patient.getAddress().getCountry());
+//
+//        patient.setAddress(address);
 
         return patientRepository.save(patient);
     }

@@ -53,12 +53,9 @@ public class Patient {
     @NotNull(message="gender is mandatory")
     private Gender gender;
 
-    @OneToOne(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    @Column(name = "address")
+    @NotBlank(message="Address is mandatory")
+    private String address;
 
     @Column(name = "email")
     @Email
@@ -72,7 +69,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(int id, String firstName, String lastName, LocalDate birthDate, Gender gender, Address address, String email, String phoneNumber) {
+    public Patient(int id, String firstName, String lastName, LocalDate birthDate, Gender gender, String address, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -123,11 +120,11 @@ public class Patient {
         this.gender = gender;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
