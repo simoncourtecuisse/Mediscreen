@@ -67,6 +67,17 @@ public class PatientController {
         return new ResponseEntity<>("Patient updated", HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePatient(@PathVariable("id") int id) {
+        if (patientService.getPatientById(id) != null) {
+            patientService.deletePatient(id);
+            LOGGER.info("Patient deleted successfully");
+            return new ResponseEntity<>("Successful Operation", HttpStatus.OK);
+        }
+        LOGGER.error("Failed to delete patient because of a BAD REQUEST");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
     private ResponseEntity<?> getBindingResultErrors(BindingResult result) {
         if (result.hasErrors()) {
             List<FieldError> fieldErrors = result.getFieldErrors();
