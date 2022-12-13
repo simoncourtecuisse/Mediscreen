@@ -1,5 +1,19 @@
 <template>
     <div v-if="currentPatientHistory" class="edit-form py-3">
+      <!-- <button class="btn btn-sm btn-info mt-2 mb-2" @click="getPatient(currentPatientHistory.patientId)">Show Patient info</button> -->
+    
+      <div class="shadow rounded p-3 mb-2 bg-light text-dark" v-if="patient != null">
+        <h5> &nbsp;&nbsp; {{ patient.lastName }} {{ patient.firstName }}</h5>
+        <p>Birthdate: {{ patient.birthDate | formatDate }} &nbsp;&nbsp;|&nbsp;&nbsp;</p>
+        <p>Gender: {{ patient.gender }}</p>
+        <p>Address: {{ patient.address }}</p>
+        <p>Email: {{ patient.email }}</p>
+        <p>Phone Number: {{ patient.phoneNumber }}</p>
+
+     
+    </div>
+      
+
       <p class="headline">Edit Patient History</p>
   
       <v-form ref="form" lazy-validation>
@@ -29,7 +43,7 @@
   </template>
   
   <script>
-  // import PatientService from "../services/PatientService";
+  import PatientService from "../services/PatientService";
   import PatientHistoryService from "../services/PatientHistoryService";
   
   export default {
@@ -52,6 +66,17 @@
             console.log(e);
           });
       },
+
+      getPatient(patientId) {
+        PatientService.get(patientId)
+        .then(response => {
+          this.patient = response.data;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e.response);
+        });
+    },
   
       updatePatientHistory() {
         PatientHistoryService.updatePatientHistory(this.currentPatientHistory.id, this.currentPatientHistory)

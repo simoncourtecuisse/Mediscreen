@@ -18,6 +18,11 @@ export default new Router({
       component: () => import("./components/Patient")
     },
     {
+      path: "/patient/:id",
+      name: "patientProfil",
+      component: () => import("./components/PatientProfil")
+    },
+    {
       path: "/add",
       name: "add",
       component: () => import("./components/AddPatient")
@@ -29,10 +34,10 @@ export default new Router({
           import ("./components/PatientHistoryList")
   },
   {
-      path: "/patientHistory/patient/:id",
-      name: "patient-patientHistory",
+      path: "/patientHistory/:patientId",
+      name: "patientProfil",
       component: () =>
-          import ("./components/Patient-PatientHistory")
+          import ("./components/PatientProfil")
   },
   {
       path: "/patientHistory/patient/:patientId/add",

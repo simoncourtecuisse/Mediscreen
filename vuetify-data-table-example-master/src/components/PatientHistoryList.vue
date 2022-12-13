@@ -77,7 +77,13 @@ import PatientHistoryService from '../services/PatientHistoryService';
       //       console.log(e);
       //     });
       // },
-  
+      
+ 
+      editPatientHistory(id) {
+      this.$router.push({ name: "patientHistory-details", params: { id: id } });
+    },
+
+      
       searchLastName() {
         PatientHistoryService.findByLastName(this.lastName)
           .then((response) => {

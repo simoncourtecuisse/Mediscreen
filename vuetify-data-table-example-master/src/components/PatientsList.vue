@@ -21,15 +21,16 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="getPatient(item.id)">mdi-account</v-icon>
             <v-icon small class="mr-2" @click="editPatient(item.id)">mdi-pencil</v-icon>
             <v-icon small @click="deletePatient(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
 
         <v-card-actions v-if="patients.length > 0">
-          <v-btn small color="error" @click="removeAllPatients">
+          <!-- <v-btn small color="error" @click="removeAllPatients">
             Remove All
-          </v-btn>
+          </v-btn> -->
         </v-card-actions>
       </v-card>
     </v-col>
@@ -94,6 +95,10 @@ export default {
         });
     },
 
+    getPatient(id) {
+      this.$router.push({ name: "patientProfil", params: { id: id } });
+    },
+
     editPatient(id) {
       this.$router.push({ name: "patient-details", params: { id: id } });
     },
@@ -129,7 +134,7 @@ export default {
 
 <style>
 .list {
-  max-width: 750px;
+  max-width: 1240px;
 }
 </style>
 
