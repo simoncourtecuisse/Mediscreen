@@ -5,6 +5,7 @@ import com.Mediscreen.PatientHistory.repository.PatientHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,7 @@ public class PatientHistoryService {
 
     public PatientHistory createPatientHistory(int patientId, PatientHistory patientHistory) {
         patientHistory.setPatientId(patientId);
+        patientHistory.setCreationDate(LocalDateTime.now());
         return patientHistoryRepository.save(patientHistory);
     }
 
@@ -39,6 +41,7 @@ public class PatientHistoryService {
             if (updatedPatientHistory.getPatientId() == 0) return null;
             newPatientHistory.setPatientId(updatedPatientHistory.getPatientId());
             newPatientHistory.setObservation(updatedPatientHistory.getObservation());
+            newPatientHistory.setCreationDate(LocalDateTime.now());
             return patientHistoryRepository.save(newPatientHistory);
         }
         return null;

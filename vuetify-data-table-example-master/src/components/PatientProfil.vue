@@ -3,7 +3,7 @@
   
       <v-col cols="12" sm="12">
         <v-card class="mx-auto" tile>
-          <v-card-title>patientProfil</v-card-title>
+          <v-card-title>Profil</v-card-title>
             
           <v-data-table
             :headers="headers"
@@ -11,7 +11,9 @@
             disable-pagination
             :hide-default-footer="true"
           >
-         
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="editPatient(item.id)">mdi-pencil</v-icon>
+          </template>
           </v-data-table>
   
         
@@ -19,7 +21,14 @@
       </v-col>
       <v-col cols="12" sm="12">
         <v-card class="mx-auto" tile>
-          <v-card-title>Patient History</v-card-title>
+          <v-card-title style="display:flex; justify-content: space-between; align-items: center" >
+            <p>Patient History</p>
+            <v-btn color="success" small @click="newPatientHistory(id)">
+        Create new
+      </v-btn> 
+          </v-card-title>
+
+         
   
           <v-data-table
             :headers="titles"
@@ -57,6 +66,7 @@
           { text: "Address", sortable: true, value: "address" },
           { text: "Email", sortable: false, value: "email" },
           { text: "Phone Number", sortable: false, value: "phoneNumber" },
+        { text: "Actions", value: "actions", sortable: false },
         ],
         patientHistory: [],
         titles: [
@@ -80,8 +90,8 @@
         });
     },
 
-    getPatientHistory(patientId) {
-        PatientHistoryService.getPatientHistory(this.$router.push({ name: "patientProfil", params: { patientId: patientId } }))
+    getPatientHistory(id) {
+        PatientHistoryService.getPatientHistory(id)
           .then((response) => {
             this.patientHistory = response.data.map(this.getDisplayPatientHistory);
             console.log(response.data);
@@ -90,8 +100,29 @@
             console.log(e);
           });
       },
+
+      newPatientHistory(id) {
+        this.$router.push({ name: "add-patientHistory", params: { patientId: id } });
+      },
       
-       
+      // getPatientHistory(id) {
+      //   PatientHistoryService.getPatientHistory(this.$router.push({ name: "patientProfil", params: { patientId: id } }))
+      //     .then((response) => {
+      //       this.patientHistory = response.data.map(this.getDisplayPatientHistory);
+      //       console.log(response.data);
+      //     })
+      //     .catch((e) => {
+      //       console.log(e);
+      //     });
+      // },
+      editPatient(id) {
+      this.$router.push({ name: "patient-details", params: { id: id } });
+    },
+      
+    editPatientHistory(id) {
+      this.$router.push({ name: "patientHistory-details", params: { id: id } });
+    },
+
       getDisplayPatient(patient) {
         return {
           id: patient.id,
@@ -115,7 +146,7 @@
     },
     mounted() {
         this.getPatient(this.$route.params.id);
-        this.getPatientHistory();
+         this.getPatientHistory(this.$route.params.id);
         // this.getPatientHistory(this.$router.push({ name: "patientProfil", params: { patientId: patientId } }))
     },
   };

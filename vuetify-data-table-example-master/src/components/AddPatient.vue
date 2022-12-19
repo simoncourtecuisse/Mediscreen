@@ -39,12 +39,11 @@
           </v-menu>
         <v-select v-model="patient.gender" :rules="[(v) => !!v || 'Gender is required']" label="Gender" :items="['MALE', 'FEMALE']" required>
         </v-select>
-        <v-text-field v-model="patient.address" :rules="[(v) => !!v || 'Address is required']" label="Address" required>
+        <v-text-field v-model="patient.address" label="Address" >
         </v-text-field>
         <v-text-field v-model="patient.email" :rules="[(v) => !!v || 'Email is required']" label="Email" required>
         </v-text-field>
-        <v-text-field v-model="patient.phoneNumber" :rules="[(v) => !!v || 'Phone Number is required']"
-          label="PhoneNumber" required></v-text-field>
+        <v-text-field v-model="patient.phoneNumber" label="PhoneNumber"></v-text-field>
       </v-form>
 
       <v-btn color="primary" class="mt-3" @click="savePatient">Submit</v-btn>

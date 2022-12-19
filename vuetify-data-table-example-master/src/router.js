@@ -34,7 +34,7 @@ export default new Router({
           import ("./components/PatientHistoryList")
   },
   {
-      path: "/patientHistory/:patientId",
+      path: "/patientHistory/patient/:patientId",
       name: "patientProfil",
       component: () =>
           import ("./components/PatientProfil")
@@ -43,7 +43,7 @@ export default new Router({
       path: "/patientHistory/patient/:patientId/add",
       name: "add-patientHistory",
       component: () =>
-          import ("./components/PatientHistory")
+          import ("./components/AddPatientHistory")
   },
   {
       path: "/patientHistory/:id",

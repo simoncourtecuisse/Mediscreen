@@ -65,6 +65,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.message = "The Patient was updated successfully!";
+          this.$router.push({ name: "patientProfil" });
         })
         .catch((e) => {
           console.log(e);

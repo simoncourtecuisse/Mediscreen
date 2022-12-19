@@ -21,7 +21,7 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="getPatient(item.id)">mdi-account</v-icon>
+            <v-icon small class="mr-2" @click="getPatient(item.id), getPatientHistory(item.id)">mdi-account</v-icon>
             <v-icon small class="mr-2" @click="editPatient(item.id)">mdi-pencil</v-icon>
             <v-icon small @click="deletePatient(item.id)">mdi-delete</v-icon>
           </template>
@@ -39,6 +39,7 @@
 
 <script>
 import PatientService from "../services/PatientService";
+import PatientHistoryService from "../services/PatientHistoryService";
 export default {
   name: "patients-list",
   data() {
@@ -99,6 +100,17 @@ export default {
       this.$router.push({ name: "patientProfil", params: { id: id } });
     },
 
+    getPatientHistory(id) {
+        PatientHistoryService.getPatientHistory(this.$router.push({ name: "patientProfil", params: { patientId: id } }))
+          .then((response) => {
+            this.patientHistory = response.data.map(this.getDisplayPatientHistory);
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      },
+      
     editPatient(id) {
       this.$router.push({ name: "patient-details", params: { id: id } });
     },

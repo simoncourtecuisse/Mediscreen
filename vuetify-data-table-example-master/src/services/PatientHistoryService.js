@@ -16,7 +16,7 @@ class PatientHistoryService {
     return axios.get(PATIENTHISTORY_BASE_URL + `/patientHistory/${id}`);
   }
 
-  createPatientHistory(data) {
+  createPatientHistory(patientId, data) {
     return axios.post(PATIENTHISTORY_BASE_URL + `/patientHistory/patient/${patientId}/add`, data);
   }
 

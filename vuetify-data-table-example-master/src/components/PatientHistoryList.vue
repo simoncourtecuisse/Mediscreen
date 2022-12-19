@@ -121,9 +121,9 @@ import PatientHistoryService from '../services/PatientHistoryService';
   </script>
   
   <style>
-  .list {
-    max-width: 750px;
-  }
+ .list {
+  max-width: 1240px;
+}
   </style>
   
   

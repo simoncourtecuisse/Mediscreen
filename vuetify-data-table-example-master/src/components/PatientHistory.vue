@@ -1,26 +1,14 @@
 <template>
     <div v-if="currentPatientHistory" class="edit-form py-3">
-      <!-- <button class="btn btn-sm btn-info mt-2 mb-2" @click="getPatient(currentPatientHistory.patientId)">Show Patient info</button> -->
-    
-      <div class="shadow rounded p-3 mb-2 bg-light text-dark" v-if="patient != null">
-        <h5> &nbsp;&nbsp; {{ patient.lastName }} {{ patient.firstName }}</h5>
-        <p>Birthdate: {{ patient.birthDate | formatDate }} &nbsp;&nbsp;|&nbsp;&nbsp;</p>
-        <p>Gender: {{ patient.gender }}</p>
-        <p>Address: {{ patient.address }}</p>
-        <p>Email: {{ patient.email }}</p>
-        <p>Phone Number: {{ patient.phoneNumber }}</p>
-
-     
-    </div>
-      
+          
 
       <p class="headline">Edit Patient History</p>
   
       <v-form ref="form" lazy-validation>
         <v-text-field v-model="currentPatientHistory.patientId" :rules="[(v) => !!v || 'Patient ID is required']" label="patientId"
           required></v-text-field>
-          <v-text-field v-model="currentPatientHistory.creationDate" :rules="[(v) => !!v || 'CreationDate is required']" label="creationDate"
-          required></v-text-field>
+          <!-- <v-text-field v-model="currentPatientHistory.creationDate" :rules="[(v) => !!v || 'CreationDate is required']" label="creationDate"
+          required></v-text-field> -->
           <v-text-field v-model="currentPatientHistory.observation" :rules="[(v) => !!v || 'Observation is required']" label="observation"
           required></v-text-field>
         <v-divider class="my-5"></v-divider>
@@ -38,7 +26,7 @@
     </div>
   
     <div v-else>
-      <p>Please click on a Patient...</p>
+      <p>Please click on a Patient History...</p>
     </div>
   </template>
   
@@ -83,6 +71,7 @@
           .then((response) => {
             console.log(response.data);
             this.message = "The Patient History was updated successfully!";
+            this.$router.go(-1);
           })
           .catch((e) => {
             console.log(e);
