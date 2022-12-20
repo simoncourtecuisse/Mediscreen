@@ -96,7 +96,7 @@ import PatientHistoryService from '../services/PatientHistoryService';
       },
     
       deletePatientHistory(id) {
-        PatientHistoryService.delete(id)
+        PatientHistoryService.deletePatientHistory(id)
           .then(() => {
             this.refreshList();
           })
@@ -108,7 +108,7 @@ import PatientHistoryService from '../services/PatientHistoryService';
       getDisplayPatientHistory(patientHistory) {
         return {
           id: patientHistory.id,
-          patientId: patientHistory.patientId.length > 30 ? patientHistory.patientId.substr(0, 30) + "..." : patientHistory.patientId,
+          patientId: patientHistory.patientId,
           creationDate: patientHistory.creationDate,
           observation: patientHistory.observation,
         };

@@ -13,6 +13,7 @@
           >
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editPatient(item.id)">mdi-pencil</v-icon>
+            <v-btn small class="mr-2" @click="newPatientHistory(item.id)">new</v-btn>
           </template>
           </v-data-table>
   
@@ -28,8 +29,6 @@
       </v-btn> 
           </v-card-title>
 
-         
-  
           <v-data-table
             :headers="titles"
             :items="patientHistory"
@@ -41,7 +40,6 @@
               <v-icon small @click="deletePatientHistory(item.id)">mdi-delete</v-icon>
             </template>
           </v-data-table>
-  
           <!-- <v-card-actions v-if="patientHistory.length > 0">
           </v-card-actions> -->
         </v-card>
@@ -103,6 +101,7 @@
 
       newPatientHistory(id) {
         this.$router.push({ name: "add-patientHistory", params: { patientId: id } });
+        console.log(id);
       },
       
       // getPatientHistory(id) {
@@ -121,7 +120,23 @@
       
     editPatientHistory(id) {
       this.$router.push({ name: "patientHistory-details", params: { id: id } });
+    },  
+
+    refreshHistoryList(id) {
+      this.getPatientHistory(id);
     },
+
+    deletePatientHistory(id) {
+      PatientHistoryService.deletePatientHistory(id)
+        .then(() => {
+          this.refreshHistoryList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+
+    
 
       getDisplayPatient(patient) {
         return {
@@ -146,7 +161,7 @@
     },
     mounted() {
         this.getPatient(this.$route.params.id);
-         this.getPatientHistory(this.$route.params.id);
+        this.getPatientHistory(this.$route.params.id);
         // this.getPatientHistory(this.$router.push({ name: "patientProfil", params: { patientId: patientId } }))
     },
   };

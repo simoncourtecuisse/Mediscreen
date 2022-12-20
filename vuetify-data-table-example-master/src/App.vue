@@ -13,7 +13,7 @@
       </v-btn>
 
       <v-btn to="/add" text>
-        Add
+        New Patient
       </v-btn>
     </v-app-bar>
 

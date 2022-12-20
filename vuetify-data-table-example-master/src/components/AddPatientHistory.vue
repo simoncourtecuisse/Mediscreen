@@ -6,7 +6,7 @@
         <v-form ref="form" lazy-validation>
             <!-- <v-text-field v-model="patientHistory.patientId" :rules="[(v) => !!v || 'patientId is required']" label="patientId"
             required></v-text-field> -->
-          <v-text-field v-model="patientHistory.observations" :rules="[(v) => !!v || 'Observation is required']" label="Observation"
+          <v-text-field v-model="patientHistory.observation" :rules="[(v) => !!v || 'Observation is required']" label="Observation"
             required></v-text-field>
         </v-form>
   
@@ -39,26 +39,28 @@
     data() {
       return {
         patientHistory: {
-        // patientId: "",
+           patientId: "2 ",  //  <----
           creationDate: "",
-          observations: ""
+          observation: ""
         },
         submitted: false,
       };
     },
     methods: {
       savePatientHistory() {
-        var data = {
+        var data = {  
+          patientId: this.patientHistory.patientId, 
           creationDate: this.patientHistory.creationDate,
-          observations: this.patientHistory.observations
+          observation: this.patientHistory.observation
         };
     
         PatientHistoryService.createPatientHistory(this.patientHistory.patientId, data)
           .then((response) => {
+            console.log(this.patientHistory.patientId)
             this.patientHistory.id = response.data.id;
             console.log(response.data);
             this.submitted = true;
-          })
+          })  
           .catch((e) => {
             console.log(e);
           })
@@ -69,9 +71,9 @@
         this.submitted = false;
         this.patientHistory = {};
       },
-      mounted() {
-    this.patientHistory.patientId = this.$route.params.patientId;
-  }
+  //     mounted() {
+  //   this.patientHistory.patientId = this.$route.params.patientId;
+  // }
     },
   };
   </script>
