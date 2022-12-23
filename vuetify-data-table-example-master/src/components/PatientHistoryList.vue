@@ -22,7 +22,6 @@
           >
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon small class="mr-2" @click="editPatientHistory(item.id)">mdi-pencil</v-icon>
-              <v-icon small @click="deletePatientHistory(item.id)">mdi-delete</v-icon>
             </template>
           </v-data-table>
   

@@ -69,9 +69,10 @@
       updatePatientHistory() {
         PatientHistoryService.updatePatientHistory(this.currentPatientHistory.id, this.currentPatientHistory)
           .then((response) => {
+            console.log(this.currentPatientHistory.patientId);
             console.log(response.data);
             this.message = "The Patient History was updated successfully!";
-            this.$router.go(-1);
+            this.$router.push({ name: "patientProfil", params: { id: this.currentPatientHistory.patientId } });
           })
           .catch((e) => {
             console.log(e);
