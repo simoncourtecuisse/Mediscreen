@@ -2,6 +2,8 @@ package com.Mediscreen.PatientHistory.controller;
 
 import com.Mediscreen.PatientHistory.model.PatientHistory;
 import com.Mediscreen.PatientHistory.service.PatientHistoryService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,13 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -34,12 +38,41 @@ class PatientHistoryControllerTest {
     @MockBean
     private PatientHistoryService mockPatientHistoryService;
 
+    public static String jsonToString(final Object obj) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            return mapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public PatientHistory patHistUnderTest1() {
+        String date = "2000-01-01T01:01:01";
+        LocalDateTime creationDate = LocalDateTime.parse(date);
+        PatientHistory patientHistory = new PatientHistory();
+        patientHistory.setId("id1");
+        patientHistory.setPatientId(1);
+        patientHistory.setCreationDate(creationDate);
+        patientHistory.setObservation("observation");
+        return patientHistory;
+    }
+    public PatientHistory patHistUnderTest2() {
+        String date = "2000-01-01T01:01:01";
+        LocalDateTime creationDate = LocalDateTime.parse(date);
+        PatientHistory patientHistory = new PatientHistory();
+        patientHistory.setId("id2");
+        patientHistory.setPatientId(2);
+        patientHistory.setCreationDate(creationDate);
+        patientHistory.setObservation("observation");
+        return patientHistory;
+    }
     @Test
     void testGetAllPatientHistory() throws Exception {
         // Setup
         // Configure PatientHistoryService.getAllPatientHistory(...).
-        final List<PatientHistory> patientHistoryList = List.of(
-                new PatientHistory("id", 0, "observation", LocalDateTime.of(2020, 1, 1, 0, 0, 0)));
+        final List<PatientHistory> patientHistoryList = List.of(patHistUnderTest1(), patHistUnderTest2());
         when(mockPatientHistoryService.getAllPatientHistory()).thenReturn(patientHistoryList);
 
         // Run the test
@@ -48,12 +81,11 @@ class PatientHistoryControllerTest {
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
-    void testGetAllPatientHistory_PatientHistoryServiceReturnsNoItems() throws Exception {
+    void testGetAllPatientHistory_ReturnsNoContent() throws Exception {
         // Setup
         when(mockPatientHistoryService.getAllPatientHistory()).thenReturn(Collections.emptyList());
 
@@ -63,63 +95,55 @@ class PatientHistoryControllerTest {
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
 
     @Test
     void testGetPatientHistoryById() throws Exception {
         // Setup
-        // Configure PatientHistoryService.getPatientHistoryById(...).
-        final PatientHistory patientHistory = new PatientHistory("id", 0, "observation",
-                LocalDateTime.of(2020, 1, 1, 0, 0, 0));
-        when(mockPatientHistoryService.getPatientHistoryById("id")).thenReturn(patientHistory);
+        when(mockPatientHistoryService.getPatientHistoryById("id1")).thenReturn(patHistUnderTest1());
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/{id}", "id")
+        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/{id}", "id1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
-    void testGetPatientHistoryById_PatientHistoryServiceReturnsNull() throws Exception {
+    void testGetPatientHistoryById_ReturnsBadRequest() throws Exception {
         // Setup
-        when(mockPatientHistoryService.getPatientHistoryById("id")).thenReturn(null);
+        when(mockPatientHistoryService.getPatientHistoryById("id5")).thenReturn(patHistUnderTest1());
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/{id}", "id")
+        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/{id}", "id1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
     @Test
     void testGetTheHistoryForPatient() throws Exception {
         // Setup
         // Configure PatientHistoryService.getTheHistoryByPatientId(...).
-        final List<PatientHistory> patientHistoryList = List.of(
-                new PatientHistory("id", 0, "observation", LocalDateTime.of(2020, 1, 1, 0, 0, 0)));
-        when(mockPatientHistoryService.getTheHistoryByPatientId(0)).thenReturn(patientHistoryList);
+        final List<PatientHistory> patientHistoryList = List.of(patHistUnderTest1(), patHistUnderTest2());
+        when(mockPatientHistoryService.getTheHistoryByPatientId(1)).thenReturn(patientHistoryList);
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/patient/{patientId}", 0)
+        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/patient/{patientId}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
-    void testGetTheHistoryForPatient_PatientHistoryServiceReturnsNoItems() throws Exception {
+    void testGetTheHistoryForPatient_ReturnsBadRequest() throws Exception {
         // Setup
         when(mockPatientHistoryService.getTheHistoryByPatientId(0)).thenReturn(Collections.emptyList());
 
@@ -129,119 +153,100 @@ class PatientHistoryControllerTest {
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
     @Test
     void testCreatePatientHistory() throws Exception {
         // Setup
-        // Configure PatientHistoryService.createPatientHistory(...).
-        final PatientHistory patientHistory = new PatientHistory("id", 0, "observation",
-                LocalDateTime.of(2020, 1, 1, 0, 0, 0));
         when(mockPatientHistoryService.createPatientHistory(eq(0), any(PatientHistory.class)))
-                .thenReturn(patientHistory);
+                .thenReturn(patHistUnderTest1());
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/patientHistory/patient/{patientId}/add", 0)
-                        .content("content").contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonToString(patHistUnderTest1())).contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+        verify(mockPatientHistoryService).createPatientHistory(eq(0), any(PatientHistory.class));
     }
 
     @Test
-    void testCreatePatientHistory_PatientHistoryServiceReturnsNull() throws Exception {
+    void testCreatePatientHistory_HasErrors() throws Exception {
         // Setup
         when(mockPatientHistoryService.createPatientHistory(eq(0), any(PatientHistory.class))).thenReturn(null);
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/patientHistory/patient/{patientId}/add", 0)
-                        .content("content").contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonToString(patHistUnderTest1())).contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
     @Test
     void testUpdatePatientHistory() throws Exception {
         // Setup
-        // Configure PatientHistoryService.getPatientHistoryById(...).
-        final PatientHistory patientHistory = new PatientHistory("id", 0, "observation",
-                LocalDateTime.of(2020, 1, 1, 0, 0, 0));
-        when(mockPatientHistoryService.getPatientHistoryById("id")).thenReturn(patientHistory);
-
-        // Configure PatientHistoryService.updatePatientHistory(...).
-        final PatientHistory patientHistory1 = new PatientHistory("id", 0, "observation",
-                LocalDateTime.of(2020, 1, 1, 0, 0, 0));
-        when(mockPatientHistoryService.updatePatientHistory(eq("id"), any(PatientHistory.class)))
-                .thenReturn(patientHistory1);
+        when(mockPatientHistoryService.getPatientHistoryById("id1")).thenReturn(patHistUnderTest1());
+        when(mockPatientHistoryService.updatePatientHistory(eq("id1"), any(PatientHistory.class))).thenReturn(patHistUnderTest2());
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(put("/patientHistory/{id}", "id")
-                        .content("content").contentType(MediaType.APPLICATION_JSON)
+        final MockHttpServletResponse response = mockMvc.perform(put("/patientHistory/{id}", "id1")
+                        .content(jsonToString(patHistUnderTest1())).contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
-        verify(mockPatientHistoryService).updatePatientHistory(eq("id"), any(PatientHistory.class));
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        verify(mockPatientHistoryService).updatePatientHistory(eq("id1"), any(PatientHistory.class));
     }
 
     @Test
-    void testUpdatePatientHistory_PatientHistoryServiceGetPatientHistoryByIdReturnsNull() throws Exception {
+    void testUpdatePatientHistory_ReturnsBadRequest() throws Exception {
         // Setup
-        when(mockPatientHistoryService.getPatientHistoryById("id")).thenReturn(null);
+        when(mockPatientHistoryService.getPatientHistoryById("id1")).thenReturn(patHistUnderTest1());
+        when(mockPatientHistoryService.updatePatientHistory(eq("id1"), any(PatientHistory.class))).thenReturn(patHistUnderTest2());
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(put("/patientHistory/{id}", "id")
-                        .content("content").contentType(MediaType.APPLICATION_JSON)
+        final MockHttpServletResponse response = mockMvc.perform(put("/patientHistory/{id}", "id5")
+                        .content(jsonToString(patHistUnderTest1())).contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
     @Test
     void testDeletePatientHistory() throws Exception {
         // Setup
-        // Configure PatientHistoryService.getPatientHistoryById(...).
-        final PatientHistory patientHistory = new PatientHistory("id", 0, "observation",
-                LocalDateTime.of(2020, 1, 1, 0, 0, 0));
-        when(mockPatientHistoryService.getPatientHistoryById("id")).thenReturn(patientHistory);
+        when(mockPatientHistoryService.getPatientHistoryById("id1")).thenReturn(patHistUnderTest1());
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(delete("/patientHistory/{id}", "id")
+        final MockHttpServletResponse response = mockMvc.perform(delete("/patientHistory/{id}", "id1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
-        verify(mockPatientHistoryService).deletePatientHistoryById("id");
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        verify(mockPatientHistoryService).deletePatientHistoryById("id1");
     }
 
     @Test
-    void testDeletePatientHistory_PatientHistoryServiceGetPatientHistoryByIdReturnsNull() throws Exception {
+    void testDeletePatientHistory_ReturnsBadRequest() throws Exception {
         // Setup
-        when(mockPatientHistoryService.getPatientHistoryById("id")).thenReturn(null);
+        when(mockPatientHistoryService.getPatientHistoryById("id1")).thenReturn(null);
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(delete("/patientHistory/{id}", "id")
+        final MockHttpServletResponse response = mockMvc.perform(delete("/patientHistory/{id}", "id1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         // Verify the results
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("expectedResponse");
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 }

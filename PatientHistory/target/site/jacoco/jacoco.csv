@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+PatientHistory,com.Mediscreen.PatientHistory,PatientHistoryApplication,5,3,0,0,2,1,1,1,1,1
+PatientHistory,com.Mediscreen.PatientHistory.controller,PatientHistoryController,0,185,0,12,0,39,0,13,0,7
+PatientHistory,com.Mediscreen.PatientHistory.model,PatientHistory,15,31,0,0,6,14,1,9,1,9
+PatientHistory,com.Mediscreen.PatientHistory.service,PatientHistoryService,2,81,1,5,0,21,1,9,0,7

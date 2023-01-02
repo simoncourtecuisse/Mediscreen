@@ -1,1 +1,5 @@
+com\Mediscreen\PatientHistory\model\PatientHistory.class
+com\Mediscreen\PatientHistory\service\PatientHistoryService.class
+com\Mediscreen\PatientHistory\controller\PatientHistoryController.class
+com\Mediscreen\PatientHistory\repository\PatientHistoryRepository.class
 com\Mediscreen\PatientHistory\PatientHistoryApplication.class

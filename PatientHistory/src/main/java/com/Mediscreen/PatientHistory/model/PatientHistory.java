@@ -25,6 +25,8 @@ public class PatientHistory {
         this.observation = observation;
         this.creationDate = creationDate;
     }
+    public PatientHistory() {
+    }
 
     public String getId() {
         return id;

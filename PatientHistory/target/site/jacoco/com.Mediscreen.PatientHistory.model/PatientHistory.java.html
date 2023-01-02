@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientHistory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PatientHistory</a> &gt; <a href="index.source.html" class="el_package">com.Mediscreen.PatientHistory.model</a> &gt; <span class="el_source">PatientHistory.java</span></div><h1>PatientHistory.java</h1><pre class="source lang-java linenums">package com.Mediscreen.PatientHistory.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
+
+@Document(collection = &quot;patientHistory&quot;)
+public class PatientHistory {
+
+    @Id
+    private String id;
+
+    private int patientId;
+    @Field(&quot;Practitioner's notes/recommendations&quot;)
+    private String observation;
+    @DateTimeFormat(pattern = &quot;yyyy-MM-dd'T'HH:mm&quot;)
+    private LocalDateTime creationDate;
+
+<span class="nc" id="L22">    public PatientHistory(String id, int patientId, String observation, LocalDateTime creationDate) {</span>
+<span class="nc" id="L23">        this.id = id;</span>
+<span class="nc" id="L24">        this.patientId = patientId;</span>
+<span class="nc" id="L25">        this.observation = observation;</span>
+<span class="nc" id="L26">        this.creationDate = creationDate;</span>
+<span class="nc" id="L27">    }</span>
+<span class="fc" id="L28">    public PatientHistory() {</span>
+<span class="fc" id="L29">    }</span>
+
+    public String getId() {
+<span class="fc" id="L32">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="fc" id="L36">        this.id = id;</span>
+<span class="fc" id="L37">    }</span>
+
+    public int getPatientId() {
+<span class="fc" id="L40">        return patientId;</span>
+    }
+
+    public void setPatientId(int patientId) {
+<span class="fc" id="L44">        this.patientId = patientId;</span>
+<span class="fc" id="L45">    }</span>
+
+    public String getObservation() {
+<span class="fc" id="L48">        return observation;</span>
+    }
+
+    public void setObservation(String observation) {
+<span class="fc" id="L52">        this.observation = observation;</span>
+<span class="fc" id="L53">    }</span>
+
+    public LocalDateTime getCreationDate() {
+<span class="fc" id="L56">        return creationDate;</span>
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+<span class="fc" id="L60">        this.creationDate = creationDate;</span>
+<span class="fc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
