@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/MediscreenApp.iml" filepath="$PROJECT_DIR$/.idea/MediscreenApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/PatientHistory/PatientHistory.iml" filepath="$PROJECT_DIR$/PatientHistory/PatientHistory.iml" />
       <module fileurl="file://$PROJECT_DIR$/Patients/Patients.iml" filepath="$PROJECT_DIR$/Patients/Patients.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Report/Report.iml" filepath="$PROJECT_DIR$/Report/Report.iml" />
     </modules>
   </component>
 </project>
