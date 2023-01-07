@@ -42,33 +42,34 @@ public class ReportService {
 
         long age = getPatientAge(patientData);
         GenderModel gender = patientData.getGender();
-        int triggers = triggersCount(historyForPatient);
+        int triggersNumber = triggersCount(historyForPatient);
         RiskLevel riskLevel = RiskLevel.None;
         System.out.println(age);
 
         if (age > 30) {
-            if (triggers >= 2 && triggers < 6) {
+            if (triggersNumber >= 2 && triggersNumber < 6) {
                 riskLevel = RiskLevel.Borderline;
-            } else if (triggers >= 6 && triggers < 8) {
+            } else if (triggersNumber >= 6 && triggersNumber < 8) {
                 riskLevel = RiskLevel.EarlyOnset;
-            } else if (triggers >= 8) {
+            } else if (triggersNumber >= 8) {
                 riskLevel = RiskLevel.InDanger;
             }
         } else if (age < 30) {
             if (gender.equals(GenderModel.MALE)) {
-                if (triggers >= 3 && triggers < 5) {
+                if (triggersNumber >= 3 && triggersNumber < 5) {
                     riskLevel = RiskLevel.InDanger;
-                } else if (triggers >= 5) {
+                } else if (triggersNumber >= 5) {
                     riskLevel = RiskLevel.EarlyOnset;
                 }
             } else if (gender.equals(GenderModel.FEMALE)) {
-                if (triggers >= 4 && triggers < 7) {
+                if (triggersNumber >= 4 && triggersNumber < 7) {
                     riskLevel = RiskLevel.InDanger;
-                } else if (triggers >= 7) {
+                } else if (triggersNumber >= 7) {
                     riskLevel = RiskLevel.EarlyOnset;
                 }
             }
         }
+        System.out.println(triggersNumber);
         return riskLevel;
     }
 
