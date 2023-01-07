@@ -44,7 +44,7 @@ public class ReportService {
         GenderModel gender = patientData.getGender();
         int triggersNumber = triggersCount(historyForPatient);
         RiskLevel riskLevel = RiskLevel.None;
-        System.out.println(age);
+        System.out.println("Patient age: " + age);
 
         if (age > 30) {
             if (triggersNumber >= 2 && triggersNumber < 6) {
@@ -69,7 +69,7 @@ public class ReportService {
                 }
             }
         }
-        System.out.println(triggersNumber);
+        System.out.println("Number of triggers: " + triggersNumber);
         return riskLevel;
     }
 
@@ -101,6 +101,7 @@ public class ReportService {
         }
         return triggerNumber;
     }
+
 
     //public
 }

@@ -41,9 +41,9 @@
         </v-select>
         <v-text-field v-model="patient.address" label="Address" >
         </v-text-field>
-        <v-text-field v-model="patient.email" :rules="[(v) => !!v || 'Email is required']" label="Email" required>
+        <v-text-field v-model="patient.email" :rules="['Email must be valid']" label="Email">
         </v-text-field>
-        <v-text-field v-model="patient.phoneNumber" :rules="[(v) => !!v || 'Phone Number format must be 111-222-3333']" label="PhoneNumber"></v-text-field>
+        <v-text-field v-model="patient.phoneNumber" :rules="['Phone Number format must be 111-222-3333']" label="Phone Number"></v-text-field>
       </v-form>
 
       <v-btn color="primary" class="mt-3" @click="savePatient">Submit</v-btn>

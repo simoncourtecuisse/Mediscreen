@@ -42,6 +42,31 @@
           <!-- <v-card-actions v-if="patientHistory.length > 0">
           </v-card-actions> -->
         </v-card>
+        
+      </v-col>
+      
+      <v-col cols="12" sm="12">
+        <v-card class="mx-auto" tile>
+          <v-card-title style="display:flex; justify-content: space-between; align-items: center" >
+            <p>Report</p>
+            <v-btn color="success" small @click="newPatientHistory()">
+        Calculate Risk
+      </v-btn> 
+          </v-card-title>
+
+          <v-data-table
+            :headers="reportTitle"
+            :items="report"
+            disable-pagination
+            :hide-default-footer="true"
+          >
+          <template v-slot:[`item.actions`]="{ item }">
+              <v-icon small class="mr-2" @click="editPatientHistory(item.id)">mdi-pencil</v-icon>
+              <v-icon small @click="deletePatientHistory(item.id)">mdi-delete</v-icon>
+            </template>
+          </v-data-table>
+        </v-card>
+        
       </v-col>
     </v-row>
   </template>
@@ -49,6 +74,7 @@
   <script>
   import PatientService from "../services/PatientService";
   import PatientHistoryService from '../services/PatientHistoryService';
+  import ReportService from "../services/ReportService";
   export default {
     name: "patientProfil",
     data() {
@@ -73,6 +99,11 @@
           { text: "Obervations", sortable: false, value: "observation" },
           { text: "Actions", value: "actions", sortable: false },
         ],
+        report: [],
+        reportTitle: [
+        { text: "Patient Id", sortable: true, value: "patientId" },
+          { text: "Report", value:"diabetesRiskLevel"},
+        ],
       };
     },
     methods: {
@@ -91,6 +122,18 @@
         PatientHistoryService.getPatientHistory(id)
           .then((response) => {
             this.patientHistory = response.data.map(this.getDisplayPatientHistory);
+            console.log(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      },
+
+      getDiabetesAssessmentForAPatient(id) {
+        ReportService.getDiabetesAssessmentForAPatient(id)
+          .then((response) => {
+            this.report = [this.getDisplayReport(response.data)];
+            // this.report = response.data.map(this.getDisplayReport);
             console.log(response.data);
           })
           .catch((e) => {
@@ -147,10 +190,17 @@
           observation: patientHistory.observation,
         };
       },
+      getDisplayReport(report) {
+        return {
+          patientId: report.patientId,
+          report: report.diabetesRiskLevel,
+        };
+      },
     },
     mounted() {
         this.getPatient(this.$route.params.id);
         this.getPatientHistory(this.$route.params.id);
+        this.getDiabetesAssessmentForAPatient(this.$route.params.id);
         // this.getPatientHistory(this.$router.push({ name: "patientProfil", params: { patientId: patientId } }))
     },
   };

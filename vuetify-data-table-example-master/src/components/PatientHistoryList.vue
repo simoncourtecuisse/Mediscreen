@@ -65,18 +65,6 @@ import PatientHistoryService from '../services/PatientHistoryService';
       refreshList() {
         this.retrievePatientHistories();
       },
-  
-      // removeAllPatients() {
-      //   PatientService.deleteAll()
-      //     .then((response) => {
-      //       console.log(response.data);
-      //       this.refreshList();
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //     });
-      // },
-      
  
       editPatientHistory(id) {
       this.$router.push({ name: "patientHistory-details", params: { id: id } });
