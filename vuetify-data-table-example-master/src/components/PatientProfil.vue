@@ -29,23 +29,8 @@
             <v-icon small @click="deletePatientHistory(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
-        <!-- <v-card-actions v-if="patientHistory.length > 0">
-        </v-card-actions> -->
       </v-card>
-
     </v-col>
-    <div className="container-fluid">
-      <button className="btn btn-sm btn-danger" @click="getDiabetesAssessmentForAPatient">Report</button>
-      <br />
-      <div className="text-center">
-        <span>{{ report }}</span>
-      </div>
-      <br />
-
-
-    </div>
-
-
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title style="display:flex; justify-content: space-between; align-items: center">
@@ -55,33 +40,12 @@
           </v-btn>
         </v-card-title>
 
-        <div className="text-center">
-        <span>{{ report }}</span>
+        <div>
+          <span v-if="report" v-text="report"></span>
+          <span v-else>No assessment yet</span>
       </div>
       </v-card>
     </v-col>
-    <!-- <v-col cols="12" sm="12">
-      <v-card class="mx-auto" tile>
-        <v-card-title style="display:flex; justify-content: space-between; align-items: center" >
-          <p>Report</p>
-          <v-btn color="success" small @click="newPatientHistory()">
-      Calculate Risk
-    </v-btn> 
-        </v-card-title>
-
-        <v-data-table
-          :headers="reportTitle"
-          :items="report"
-          disable-pagination
-          :hide-default-footer="true"
-        >
-        <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editPatientHistory(item.id)">mdi-pencil</v-icon>
-            <v-icon small @click="deletePatientHistory(item.id)">mdi-delete</v-icon>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-col> -->
   </v-row>
 </template>
 
@@ -114,11 +78,7 @@ export default {
         { text: "Obervations", sortable: false, value: "observation" },
         { text: "Actions", value: "actions", sortable: false },
       ],
-      report: [],
-      reportTitle: [
-        { text: "Patient Id", sortable: true, value: "patientId" },
-        { text: "Report", value: "report" },
-      ],
+      report: "",
     };
   },
   methods: {

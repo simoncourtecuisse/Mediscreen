@@ -9,7 +9,7 @@ class ReportService {
   }
 
   // findByLastName(lastName) {
-  //   return axios.get(`/patient?title=${lastName}`);
+  //   return axios.post(`/assess/${lastName}`);
   // }
 }
 

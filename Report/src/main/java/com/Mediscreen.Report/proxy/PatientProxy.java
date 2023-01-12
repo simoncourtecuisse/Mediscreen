@@ -15,6 +15,8 @@ public interface PatientProxy {
     @GetMapping("/patient/{id}")
     ResponseEntity<PatientModel> getPatientById(@PathVariable("id") int patientId);
 
-    @GetMapping("/patient/getFamily")
-    List<PatientModel> getFamily(@RequestParam("lastName") String lastName);
+//    @GetMapping("/patient/{lastName}")
+//    ResponseEntity<List<PatientModel>> getFamily(@PathVariable("lastName") String lastName);
+    @GetMapping("/patient/family")
+    ResponseEntity<List<PatientModel>> getFamily(@RequestParam("lastName") String lastName);
 }

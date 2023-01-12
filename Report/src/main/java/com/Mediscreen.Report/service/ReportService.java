@@ -102,6 +102,7 @@ public class ReportService {
         return triggerNumber;
     }
 
-
-    //public
+    public List<PatientModel> getPatientByFamily(String lastName) {
+        return patientProxy.getFamily(lastName).getBody();
+    }
 }
