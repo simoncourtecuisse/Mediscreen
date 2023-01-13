@@ -107,7 +107,7 @@ export default {
     getDiabetesAssessmentForAPatient(id) {
       ReportService.getDiabetesAssessmentForAPatient(id)
         .then((response) => {
-          this.report = [this.getDisplayReport(response.data)];
+          this.report = this.getDisplayReport(response.data);
           // this.report = response.data.map(this.getDisplayReport);
           console.log(response.data);
 
@@ -169,10 +169,7 @@ export default {
       };
     },
     getDisplayReport(report) {
-      return {
-        patientId: this.id,
-        report: report,
-      };
+      return report;
     },
   },
   mounted() {

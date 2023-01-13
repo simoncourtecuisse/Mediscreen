@@ -29,7 +29,7 @@ class PatientService {
   }
 
   findByLastName(lastName) {
-    return axios.get(PATIENT_BASE_URL + `/patient?title=${lastName}`);
+    return axios.get(PATIENT_BASE_URL + `/patient/familyName?lastName=${lastName}`);
   }
 }
 

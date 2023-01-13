@@ -21,7 +21,6 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <!-- <v-icon small class="mr-2" @click="getPatient(item.id), getPatientHistory(item.id)">mdi-account</v-icon> -->
             <v-icon small class="mr-2" @click="getPatient(item.id)">mdi-account</v-icon>
             <v-icon small class="mr-2" @click="editPatient(item.id)">mdi-pencil</v-icon>
             <v-icon small @click="deletePatient(item.id)">mdi-delete</v-icon>
@@ -40,7 +39,6 @@
 
 <script>
 import PatientService from "../services/PatientService";
-// import PatientHistoryService from "../services/PatientHistoryService";
 export default {
   name: "patients-list",
   data() {

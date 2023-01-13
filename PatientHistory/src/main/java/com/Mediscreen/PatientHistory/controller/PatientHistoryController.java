@@ -45,10 +45,10 @@ public class PatientHistoryController {
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<?> getTheHistoryForPatient(@PathVariable("patientId") int patientId) {
         List<PatientHistory> patientHistoryList = patientHistoryService.getTheHistoryByPatientId(patientId);
-        if (patientHistoryList.isEmpty()) {
-            LOGGER.error("Failed to find any history because it was not found");
-            return new ResponseEntity<>("No history found for this PatientId: " + patientId, HttpStatus.BAD_REQUEST);
-        }
+//        if (patientHistoryList.isEmpty()) {
+//            LOGGER.error("Failed to find any history because it was not found");
+//            return new ResponseEntity<>("No history found for this PatientId: " + patientId, HttpStatus.BAD_REQUEST);
+//        }
         LOGGER.info("Success find history for this PatientId: " + patientId);
         return new ResponseEntity<>(patientHistoryList, HttpStatus.OK);
     }

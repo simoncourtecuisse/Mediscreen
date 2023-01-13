@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
 @RestController
@@ -30,10 +31,6 @@ public class ReportController {
     @PostMapping("/{patientId}")
     public ResponseEntity<?> getDiabetesAssessment(@PathVariable("patientId") int patientId) throws IOException {
         RiskLevel diabetesRiskLevel = reportService.calculRisk(patientId);
-//        JsonObject jsonObject = new JsonObject();
-//        jsonObject.addProperty("diabetesRiskLevel", String.valueOf(diabetesRiskLevel));
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.writeValue(new File("diabetesRiskLevel"), diabetesRiskLevel);
         if (diabetesRiskLevel == null) {
             LOGGER.error("No assessment with patientId: " + patientId);
             return ResponseEntity.badRequest().build();
@@ -42,9 +39,20 @@ public class ReportController {
         return new ResponseEntity<>(diabetesRiskLevel, HttpStatus.OK);
     }
 
-    @PostMapping("/family")
+    @PostMapping("/familyName")
     public ResponseEntity<?> getFamily(@RequestParam("lastName") String lastName) {
+        System.out.println(lastName);
         List<PatientModel> family = reportService.getPatientByFamily(lastName);
+        List<Integer> familyStream = family.stream()
+                        .map(PatientModel::getId)
+                                .collect(Collectors.toList());
+        familyStream.forEach(f -> getDiabetesAssessment());
+
+
+        getDiabetesAssessment(familyStream);
+        List<RiskLevel> familyRisk = reportService.calculRisk(familyStream);
+        System.out.println(familyStream);
+        System.out.println(family);
         if (family.isEmpty()) {
             LOGGER.error("Failed to get patients with this family Name.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
