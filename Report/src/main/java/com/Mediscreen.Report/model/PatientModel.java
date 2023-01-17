@@ -23,10 +23,12 @@ public class PatientModel {
 
     private String phoneNumber;
 
+    private RiskLevel riskLevel;
+
     public PatientModel() {
     }
 
-    public PatientModel(int id, String firstName, String lastName, LocalDate birthDate, GenderModel gender, String address, String email, String phoneNumber) {
+    public PatientModel(int id, String firstName, String lastName, LocalDate birthDate, GenderModel gender, String address, String email, String phoneNumber, RiskLevel riskLevel) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,6 +37,7 @@ public class PatientModel {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.riskLevel = riskLevel;
     }
 
     public int getId() {
@@ -101,6 +104,14 @@ public class PatientModel {
         this.phoneNumber = phoneNumber;
     }
 
+    public RiskLevel getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(RiskLevel riskLevel) {
+        this.riskLevel = riskLevel;
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -112,6 +123,7 @@ public class PatientModel {
                 ", address=" + address +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", riskLevel ='" + riskLevel + '\'' +
                 '}';
     }
 }

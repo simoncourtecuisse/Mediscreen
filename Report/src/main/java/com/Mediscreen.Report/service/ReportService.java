@@ -30,6 +30,10 @@ public class ReportService {
         return patientProxy.getPatientById(patientId).getBody();
     }
 
+//    public PatientModel getPatientIdByLastName(String lastName) {
+//        return patientProxy.
+//    }
+
     public List<PatientHistoryModel> getTheHistoryForPatient(int patientId) {
         return patientHistoryProxy.getTheHistoryForPatient(patientId).getBody();
     }
