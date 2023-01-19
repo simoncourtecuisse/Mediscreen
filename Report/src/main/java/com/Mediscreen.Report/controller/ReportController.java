@@ -42,7 +42,6 @@ public class ReportController {
 
     @PostMapping("/familyName")
     public ResponseEntity<?> getFamily(@RequestParam("lastName") String lastName) {
-        System.out.println(lastName);
         List<PatientModel> family = reportService.getPatientByFamily(lastName);
 //        List<RiskLevel> familyStream = family.stream()
 //                       .map(PatientModel::getId)
