@@ -1,0 +1,13 @@
+version: "3"
+services:
+ patient:
+#  image: nginx
+  image: mediscreen-patient
+  ports:
+   - "8081:80"
+  restart: always
+ ui:
+  image: mediscreen-ui
+  ports:
+   - "8080:80"
+
