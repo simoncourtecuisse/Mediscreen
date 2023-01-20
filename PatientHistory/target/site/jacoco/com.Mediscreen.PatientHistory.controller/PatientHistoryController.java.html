@@ -45,10 +45,10 @@ import java.util.List;
     @GetMapping(&quot;/patient/{patientId}&quot;)
     public ResponseEntity&lt;?&gt; getTheHistoryForPatient(@PathVariable(&quot;patientId&quot;) int patientId) {
 <span class="fc" id="L47">        List&lt;PatientHistory&gt; patientHistoryList = patientHistoryService.getTheHistoryByPatientId(patientId);</span>
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (patientHistoryList.isEmpty()) {</span>
-<span class="fc" id="L49">            LOGGER.error(&quot;Failed to find any history because it was not found&quot;);</span>
-<span class="fc" id="L50">            return new ResponseEntity&lt;&gt;(&quot;No history found for this PatientId: &quot; + patientId, HttpStatus.BAD_REQUEST);</span>
-        }
+//        if (patientHistoryList.isEmpty()) {
+//            LOGGER.error(&quot;Failed to find any history because it was not found&quot;);
+//            return new ResponseEntity&lt;&gt;(&quot;No history found for this PatientId: &quot; + patientId, HttpStatus.BAD_REQUEST);
+//        }
 <span class="fc" id="L52">        LOGGER.info(&quot;Success find history for this PatientId: &quot; + patientId);</span>
 <span class="fc" id="L53">        return new ResponseEntity&lt;&gt;(patientHistoryList, HttpStatus.OK);</span>
     }

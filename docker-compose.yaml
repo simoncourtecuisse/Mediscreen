@@ -16,9 +16,10 @@ services:
  mongodb:
   image: "mongo:4"
   container_name: mongodb
-  environment:
-   MONGO_INITDB_ROOT_USERNAME: root
-   MONGO_INITDB_ROOT_PASSWORD: root
+#  command: [--auth]
+#  environment:
+#   - MONGO_INITDB_ROOT_USERNAME=root
+#   - MONGO_INITDB_ROOT_PASSWORD=root
   ports:
    - "27017:27017"
   volumes:
@@ -30,7 +31,7 @@ services:
   image: mediscreen-patient
   container_name: mediscreen-patient
   ports:
-   - "8081:80"
+   - "8081:8081"
   restart: always
   environment:
    SPRING_APPLICATION_JSON: '{
@@ -47,7 +48,7 @@ services:
   image: mediscreen-patienthistory
   container_name: mediscreen-patienthistory
   ports:
-   - "8082:80"
+   - "8082:8082"
   environment:
    - "spring.data.mongodb.database=mediscreenpatienthistory"
    - "spring.data.mongodb.host=mongodb"
@@ -56,18 +57,18 @@ services:
   image: mediscreen-report
   container_name: mediscreen-report
   ports:
-   - "8083:80"
+   - "8083:8083"
 
  ui:
-  build: ./mediscreen-ui
-  links:
-   - patient
-   - patientHistory
-   - report
+#  build: ./mediscreen-ui
+#  links:
+#   - patient
+#   - patientHistory
+#   - report
   image: mediscreen-ui
   container_name: mediscreen-ui
   ports:
-   - "8080:80"
+   - "8080:8080"
 
 volumes:
  mysql_data:

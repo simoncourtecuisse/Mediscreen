@@ -57,7 +57,7 @@ class ReportServiceTest {
         LocalDateTime creationDate = LocalDateTime.parse(date);
         PatientHistoryModel patientHistory = new PatientHistoryModel();
         patientHistory.setId("id1");
-        patientHistory.setPatientId(0);
+        patientHistory.setPatientId(1);
         patientHistory.setCreationDate(creationDate);
         patientHistory.setObservation("observation");
         return patientHistory;
@@ -67,7 +67,7 @@ class ReportServiceTest {
         LocalDateTime creationDate = LocalDateTime.parse(date);
         PatientHistoryModel patientHistory = new PatientHistoryModel();
         patientHistory.setId("id2");
-        patientHistory.setPatientId(0);
+        patientHistory.setPatientId(2);
         patientHistory.setCreationDate(creationDate);
         patientHistory.setObservation("observation");
         return patientHistory;
@@ -78,10 +78,10 @@ class ReportServiceTest {
         // Setup
         final ResponseEntity<PatientModel> patientModelResponseEntity = new ResponseEntity<>(
                 patientUnderTest(), HttpStatus.OK);
-        when(mockPatientProxy.getPatientById(0)).thenReturn(patientModelResponseEntity);
+        when(mockPatientProxy.getPatientById(1)).thenReturn(patientModelResponseEntity);
 
         // Run the test
-        final PatientModel result = reportServiceUnderTest.getPatientData(0);
+        final PatientModel result = reportServiceUnderTest.getPatientData(1);
     }
 
     @Test
@@ -90,20 +90,20 @@ class ReportServiceTest {
         final ResponseEntity<List<PatientHistoryModel>> listResponseEntity = new ResponseEntity<>(
                 List.of(patHistUnderTest1(), patHistUnderTest2()),
                 HttpStatus.OK);
-        when(mockPatientHistoryProxy.getTheHistoryForPatient(0)).thenReturn(listResponseEntity);
+        when(mockPatientHistoryProxy.getTheHistoryForPatient(1)).thenReturn(listResponseEntity);
 
         // Run the test
-        final List<PatientHistoryModel> result = reportServiceUnderTest.getTheHistoryForPatient(0);
+        final List<PatientHistoryModel> result = reportServiceUnderTest.getTheHistoryForPatient(1);
     }
 
     @Test
     void testGetTheHistoryForPatient_PatientHistoryProxyReturnsNoItems() {
         // Setup
         final ResponseEntity<List<PatientHistoryModel>> listResponseEntity = ResponseEntity.ok(Collections.emptyList());
-        when(mockPatientHistoryProxy.getTheHistoryForPatient(0)).thenReturn(listResponseEntity);
+        when(mockPatientHistoryProxy.getTheHistoryForPatient(1)).thenReturn(listResponseEntity);
 
         // Run the test
-        final List<PatientHistoryModel> result = reportServiceUnderTest.getTheHistoryForPatient(0);
+        final List<PatientHistoryModel> result = reportServiceUnderTest.getTheHistoryForPatient(1);
 
         // Verify the results
         assertEquals(result, Collections.emptyList());
@@ -114,18 +114,18 @@ class ReportServiceTest {
         // Setup
         final ResponseEntity<PatientModel> patientModelResponseEntity = new ResponseEntity<>(
                 patientUnderTest(), HttpStatus.OK);
-        when(mockPatientProxy.getPatientById(0)).thenReturn(patientModelResponseEntity);
+        when(mockPatientProxy.getPatientById(1)).thenReturn(patientModelResponseEntity);
 
         final ResponseEntity<List<PatientHistoryModel>> listResponseEntity = new ResponseEntity<>(
                 List.of(patHistUnderTest1(), patHistUnderTest2()),
                 HttpStatus.OK);
-        when(mockPatientHistoryProxy.getTheHistoryForPatient(0)).thenReturn(listResponseEntity);
+        when(mockPatientHistoryProxy.getTheHistoryForPatient(1)).thenReturn(listResponseEntity);
 
         // Run the test
-        final RiskLevel result = reportServiceUnderTest.calculRisk(0);
+        final RiskLevel result = reportServiceUnderTest.calculRisk(1);
 
         // Verify the results
-//        assertEquals(result, RiskLevel.None);
+        assertEquals(result, RiskLevel.None);
     }
 
     @Test
@@ -133,13 +133,13 @@ class ReportServiceTest {
         // Setup
         final ResponseEntity<PatientModel> patientModelResponseEntity = new ResponseEntity<>(
                 patientUnderTest(), HttpStatus.OK);
-        when(mockPatientProxy.getPatientById(0)).thenReturn(patientModelResponseEntity);
+        when(mockPatientProxy.getPatientById(1)).thenReturn(patientModelResponseEntity);
 
         final ResponseEntity<List<PatientHistoryModel>> listResponseEntity = ResponseEntity.ok(Collections.emptyList());
-        when(mockPatientHistoryProxy.getTheHistoryForPatient(0)).thenReturn(listResponseEntity);
+        when(mockPatientHistoryProxy.getTheHistoryForPatient(1)).thenReturn(listResponseEntity);
 
         // Run the test
-        final RiskLevel result = reportServiceUnderTest.calculRisk(0);
+        final RiskLevel result = reportServiceUnderTest.calculRisk(1);
 
         // Verify the results
         assertNull(result);
