@@ -1,13 +1,74 @@
 version: "3"
 services:
+ mysql:
+  image: "mysql:8"
+  container_name: mysql
+  restart: unless-stopped
+  environment:
+   MYSQL_DATABASE: mediscreenapp
+#   MYSQL_USER: "root"
+   MYSQL_ROOT_PASSWORD: "sqlpassword!"
+  ports:
+   - "3306:3306"
+  volumes:
+   - mysql_data:/var/lib/mysql#
+
+ mongodb:
+  image: "mongo:4"
+  container_name: mongodb
+  environment:
+   MONGO_INITDB_ROOT_USERNAME: root
+   MONGO_INITDB_ROOT_PASSWORD: root
+  ports:
+   - "27017:27017"
+  volumes:
+   - mongodb_data:/data/db
+
  patient:
-#  image: nginx
+  depends_on:
+   - mysql
   image: mediscreen-patient
+  container_name: mediscreen-patient
   ports:
    - "8081:80"
   restart: always
+  environment:
+   SPRING_APPLICATION_JSON: '{
+       "spring.datasource.url"  : "jdbc:mysql://mysql:3306/mediscreenapp?serverTimezone=UTC",
+       "spring.datasource.username" : "root",
+       "spring.datasource.password" : "sqlpassword!",
+       "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL8Dialect",
+       "spring.jpa.hibernate.ddl-auto" : "create-drop"
+     }'
+
+ patientHistory:
+  depends_on:
+   - mongodb
+  image: mediscreen-patienthistory
+  container_name: mediscreen-patienthistory
+  ports:
+   - "8082:80"
+  environment:
+   - "spring.data.mongodb.database=mediscreenpatienthistory"
+   - "spring.data.mongodb.host=mongodb"
+
+ report:
+  image: mediscreen-report
+  container_name: mediscreen-report
+  ports:
+   - "8083:80"
+
  ui:
+  build: ./mediscreen-ui
+  links:
+   - patient
+   - patientHistory
+   - report
   image: mediscreen-ui
+  container_name: mediscreen-ui
   ports:
    - "8080:80"
 
+volumes:
+ mysql_data:
+ mongodb_data:

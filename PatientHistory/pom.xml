@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.Mediscreen</groupId>
     <artifactId>PatientHistory</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>PatientHistory</name>
     <description>Mediscreen App Part 2 - PatientHistory</description>
     <properties>

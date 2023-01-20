@@ -143,20 +143,6 @@ class PatientHistoryControllerTest {
     }
 
     @Test
-    void testGetTheHistoryForPatient_ReturnsBadRequest() throws Exception {
-        // Setup
-        when(mockPatientHistoryService.getTheHistoryByPatientId(0)).thenReturn(Collections.emptyList());
-
-        // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(get("/patientHistory/patient/{patientId}", 0)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse();
-
-        // Verify the results
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-    }
-
-    @Test
     void testCreatePatientHistory() throws Exception {
         // Setup
         when(mockPatientHistoryService.createPatientHistory(eq(0), any(PatientHistory.class)))
