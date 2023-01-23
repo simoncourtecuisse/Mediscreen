@@ -2,7 +2,6 @@ package com.Mediscreen.Report.controller;
 
 import com.Mediscreen.Report.model.GenderModel;
 import com.Mediscreen.Report.model.PatientModel;
-import com.Mediscreen.Report.model.RiskLevel;
 import com.Mediscreen.Report.service.ReportService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.Mediscreen.Report.model.RiskLevel.None;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

@@ -3,18 +3,13 @@ package com.Mediscreen.Report.controller;
 import com.Mediscreen.Report.model.PatientModel;
 import com.Mediscreen.Report.model.RiskLevel;
 import com.Mediscreen.Report.service.ReportService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

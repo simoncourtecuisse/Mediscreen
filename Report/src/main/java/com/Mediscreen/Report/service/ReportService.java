@@ -1,9 +1,9 @@
 package com.Mediscreen.Report.service;
 
-import com.Mediscreen.Report.model.RiskLevel;
 import com.Mediscreen.Report.model.GenderModel;
 import com.Mediscreen.Report.model.PatientHistoryModel;
 import com.Mediscreen.Report.model.PatientModel;
+import com.Mediscreen.Report.model.RiskLevel;
 import com.Mediscreen.Report.proxy.PatientHistoryProxy;
 import com.Mediscreen.Report.proxy.PatientProxy;
 import org.springframework.stereotype.Service;
