@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "mediscreen-patientHistory", url = "localhost:8082")
+@FeignClient(name = "mediscreen-patientHistory", url = "mediscreen-patientHistory.url.cross")
 public interface PatientHistoryProxy {
 
     @GetMapping("/patientHistory/patient/{patientId}")
