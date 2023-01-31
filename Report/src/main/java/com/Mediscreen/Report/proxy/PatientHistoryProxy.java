@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-//@FeignClient(name = "mediscreen-patientHistory", url = "${mediscreen-patientHistory.url.cross}")
-@FeignClient(name = "mediscreen-patientHistory", url = "mediscreen-patientHistory:8082")
+@FeignClient(name = "mediscreen-patientHistory", url = "${mediscreen-patientHistory.url.cross}")
+//@FeignClient(name = "mediscreen-patientHistory", url = "mediscreen-patientHistory:8082")
 //@FeignClient(name = "mediscreen-patientHistory", url = "http://localhost:8082")
 public interface PatientHistoryProxy {
 

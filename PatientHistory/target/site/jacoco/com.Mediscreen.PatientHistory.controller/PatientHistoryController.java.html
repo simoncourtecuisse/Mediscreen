@@ -11,81 +11,82 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@CrossOrigin(origins = {&quot;http://localhost:8080&quot;, &quot;${report.cross}&quot;}, allowedHeaders = &quot;*&quot;)
 @CrossOrigin(origins = &quot;http://localhost:8080&quot;, allowedHeaders = &quot;*&quot;)
 @RestController
 @RequestMapping(&quot;/patientHistory&quot;)
-<span class="fc" id="L17">public class PatientHistoryController {</span>
+<span class="fc" id="L18">public class PatientHistoryController {</span>
 
-<span class="fc" id="L19">    Logger LOGGER = LogManager.getLogger(PatientHistoryController.class);</span>
+<span class="fc" id="L20">    Logger LOGGER = LogManager.getLogger(PatientHistoryController.class);</span>
     @Autowired
     PatientHistoryService patientHistoryService;
 
     @GetMapping(&quot;/all&quot;)
     public ResponseEntity&lt;?&gt; getAllPatientHistory() {
-<span class="fc" id="L25">        List&lt;PatientHistory&gt; allPatientHistory = patientHistoryService.getAllPatientHistory();</span>
-<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (allPatientHistory.isEmpty()) {</span>
-<span class="fc" id="L27">            LOGGER.error(&quot;No patient history found&quot;);</span>
-<span class="fc" id="L28">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+<span class="fc" id="L26">        List&lt;PatientHistory&gt; allPatientHistory = patientHistoryService.getAllPatientHistory();</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (allPatientHistory.isEmpty()) {</span>
+<span class="fc" id="L28">            LOGGER.error(&quot;No patient history found&quot;);</span>
+<span class="fc" id="L29">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
         }
-<span class="fc" id="L30">        LOGGER.info(&quot;Success find all patients history&quot;);</span>
-<span class="fc" id="L31">        return new ResponseEntity&lt;&gt;(allPatientHistory, HttpStatus.OK);</span>
+<span class="fc" id="L31">        LOGGER.info(&quot;Success find all patients history&quot;);</span>
+<span class="fc" id="L32">        return new ResponseEntity&lt;&gt;(allPatientHistory, HttpStatus.OK);</span>
     }
 
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; getPatientHistoryById(@PathVariable(&quot;id&quot;) String id) {
-<span class="fc" id="L36">        PatientHistory patientHistory = patientHistoryService.getPatientHistoryById(id);</span>
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (patientHistory == null) {</span>
-<span class="fc" id="L38">            LOGGER.error(&quot;Failed to get patient history because it was not found&quot;);</span>
-<span class="fc" id="L39">            return new ResponseEntity&lt;&gt;(&quot;No patient history found with this id: &quot; + id, HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L37">        PatientHistory patientHistory = patientHistoryService.getPatientHistoryById(id);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (patientHistory == null) {</span>
+<span class="fc" id="L39">            LOGGER.error(&quot;Failed to get patient history because it was not found&quot;);</span>
+<span class="fc" id="L40">            return new ResponseEntity&lt;&gt;(&quot;No patient history found with this id: &quot; + id, HttpStatus.BAD_REQUEST);</span>
         }
-<span class="fc" id="L41">        LOGGER.info(&quot;Success find patient history with this id: &quot; + id);</span>
-<span class="fc" id="L42">        return new ResponseEntity&lt;&gt;(patientHistory, HttpStatus.OK);</span>
+<span class="fc" id="L42">        LOGGER.info(&quot;Success find patient history with this id: &quot; + id);</span>
+<span class="fc" id="L43">        return new ResponseEntity&lt;&gt;(patientHistory, HttpStatus.OK);</span>
     }
 
     @GetMapping(&quot;/patient/{patientId}&quot;)
     public ResponseEntity&lt;?&gt; getTheHistoryForPatient(@PathVariable(&quot;patientId&quot;) int patientId) {
-<span class="fc" id="L47">        List&lt;PatientHistory&gt; patientHistoryList = patientHistoryService.getTheHistoryByPatientId(patientId);</span>
+<span class="fc" id="L48">        List&lt;PatientHistory&gt; patientHistoryList = patientHistoryService.getTheHistoryByPatientId(patientId);</span>
 //        if (patientHistoryList.isEmpty()) {
 //            LOGGER.error(&quot;Failed to find any history because it was not found&quot;);
 //            return new ResponseEntity&lt;&gt;(&quot;No history found for this PatientId: &quot; + patientId, HttpStatus.BAD_REQUEST);
 //        }
-<span class="fc" id="L52">        LOGGER.info(&quot;Success find history for this PatientId: &quot; + patientId);</span>
-<span class="fc" id="L53">        return new ResponseEntity&lt;&gt;(patientHistoryList, HttpStatus.OK);</span>
+<span class="fc" id="L53">        LOGGER.info(&quot;Success find history for this PatientId: &quot; + patientId);</span>
+<span class="fc" id="L54">        return new ResponseEntity&lt;&gt;(patientHistoryList, HttpStatus.OK);</span>
     }
 
     @PostMapping(&quot;/patient/{patientId}/add&quot;)
     public ResponseEntity&lt;?&gt; createPatientHistory(@PathVariable(&quot;patientId&quot;) int patientId, @RequestBody PatientHistory observation) {
-<span class="fc" id="L58">        PatientHistory newObservation = patientHistoryService.createPatientHistory(patientId, observation);</span>
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (newObservation == null) {</span>
-<span class="fc" id="L60">            LOGGER.error(&quot;Failed to create observation for PatientId: &quot; + patientId);</span>
-<span class="fc" id="L61">            return new ResponseEntity&lt;&gt;(&quot;Failed to create observation for PatientId: &quot; + patientId, HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L59">        PatientHistory newObservation = patientHistoryService.createPatientHistory(patientId, observation);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (newObservation == null) {</span>
+<span class="fc" id="L61">            LOGGER.error(&quot;Failed to create observation for PatientId: &quot; + patientId);</span>
+<span class="fc" id="L62">            return new ResponseEntity&lt;&gt;(&quot;Failed to create observation for PatientId: &quot; + patientId, HttpStatus.BAD_REQUEST);</span>
         }
-<span class="fc" id="L63">        LOGGER.info(&quot;New observation created for PatientId: &quot; + patientId);</span>
-<span class="fc" id="L64">        return new ResponseEntity&lt;&gt;(newObservation, HttpStatus.CREATED);</span>
+<span class="fc" id="L64">        LOGGER.info(&quot;New observation created for PatientId: &quot; + patientId);</span>
+<span class="fc" id="L65">        return new ResponseEntity&lt;&gt;(newObservation, HttpStatus.CREATED);</span>
     }
 
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; updatePatientHistory(@PathVariable(&quot;id&quot;) String id, @RequestBody PatientHistory patientHistory) {
-<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (patientHistoryService.getPatientHistoryById(id) == null) {</span>
-<span class="fc" id="L70">            LOGGER.error(&quot;Failed to update observation because the patient history was not found&quot;);</span>
-<span class="fc" id="L71">            return new ResponseEntity&lt;&gt;(&quot;No patient history with id: &quot; + id, HttpStatus.BAD_REQUEST);</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (patientHistoryService.getPatientHistoryById(id) == null) {</span>
+<span class="fc" id="L71">            LOGGER.error(&quot;Failed to update observation because the patient history was not found&quot;);</span>
+<span class="fc" id="L72">            return new ResponseEntity&lt;&gt;(&quot;No patient history with id: &quot; + id, HttpStatus.BAD_REQUEST);</span>
 
         }
-<span class="fc" id="L74">        patientHistory.setId(id);</span>
-<span class="fc" id="L75">        patientHistoryService.updatePatientHistory(id, patientHistory);</span>
-<span class="fc" id="L76">        LOGGER.info(&quot;Patient History updated successfully&quot;);</span>
-<span class="fc" id="L77">        return new ResponseEntity&lt;&gt;(&quot;Patient History updated&quot;, HttpStatus.OK);</span>
+<span class="fc" id="L75">        patientHistory.setId(id);</span>
+<span class="fc" id="L76">        patientHistoryService.updatePatientHistory(id, patientHistory);</span>
+<span class="fc" id="L77">        LOGGER.info(&quot;Patient History updated successfully&quot;);</span>
+<span class="fc" id="L78">        return new ResponseEntity&lt;&gt;(&quot;Patient History updated&quot;, HttpStatus.OK);</span>
     }
 
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; deletePatientHistory(@PathVariable(&quot;id&quot;) String id) {
-<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (patientHistoryService.getPatientHistoryById(id) != null) {</span>
-<span class="fc" id="L83">            patientHistoryService.deletePatientHistoryById(id);</span>
-<span class="fc" id="L84">            LOGGER.info(&quot;Patient History deleted successfully&quot;);</span>
-<span class="fc" id="L85">            return new ResponseEntity&lt;&gt;(&quot;Successful Operation&quot;, HttpStatus.OK);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (patientHistoryService.getPatientHistoryById(id) != null) {</span>
+<span class="fc" id="L84">            patientHistoryService.deletePatientHistoryById(id);</span>
+<span class="fc" id="L85">            LOGGER.info(&quot;Patient History deleted successfully&quot;);</span>
+<span class="fc" id="L86">            return new ResponseEntity&lt;&gt;(&quot;Successful Operation&quot;, HttpStatus.OK);</span>
         }
-<span class="fc" id="L87">        LOGGER.error(&quot;Failed to delete patient history because of a BAD REQUEST&quot;);</span>
-<span class="fc" id="L88">        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</span>
+<span class="fc" id="L88">        LOGGER.error(&quot;Failed to delete patient history because of a BAD REQUEST&quot;);</span>
+<span class="fc" id="L89">        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

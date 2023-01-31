@@ -1,15 +1,6 @@
 <template>
     <v-row align="center" class="list px-3 mx-auto">
-      <v-col cols="12" md="8">
-        <v-text-field v-model="lastName" label="Search by Last Name"></v-text-field>
-      </v-col>
-  
-      <v-col cols="12" md="4">
-        <v-btn small @click="searchLastName">
-          Search
-        </v-btn>
-      </v-col>
-  
+      
       <v-col cols="12" sm="12">
         <v-card class="mx-auto" tile>
           <v-card-title>Patient Histories</v-card-title>
@@ -69,18 +60,6 @@ import PatientHistoryService from '../services/PatientHistoryService';
       editPatientHistory(id) {
       this.$router.push({ name: "patientHistory-details", params: { id: id } });
     },
-
-      
-      searchLastName() {
-        PatientHistoryService.findByLastName(this.lastName)
-          .then((response) => {
-            this.patientHistory = response.data.map(this.getDisplayPatientHistory);
-            console.log(response.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      },
     
       deletePatientHistory(id) {
         PatientHistoryService.deletePatientHistory(id)

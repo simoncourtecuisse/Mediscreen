@@ -20,6 +20,7 @@ services:
   container_name: mongodb
 #  command: [--auth]
 #  environment:
+#   - spring.data.mongodb.uri=mongodb://mongodb:27017
 #   - MONGO_INITDB_ROOT_USERNAME=root
 #   - MONGO_INITDB_ROOT_PASSWORD=root
   ports:
@@ -67,9 +68,9 @@ services:
 #  links:
 #   - patient
 #   - patientHistory
-#  environment:
-#   - "mediscreen-patient.url.cross: http://mediscreen-patient:8081"
-#   - "mediscreen-patientHistory.url.cross: http://mediscreen-patientHistory:8081"
+  environment:
+   - "mediscreen-patient.url.cross=http://mediscreen-patient:8081"
+   - "mediscreen-patientHistory.url.cross=http://mediscreen-patientHistory:8082"
   ports:
    - "8083:8083"
 #  networks:

@@ -52,16 +52,9 @@
     <div v-else>
       <v-card class="mx-auto">
         <v-card-title>
-          Submitted successfully!
+          Patient created successfully!
         </v-card-title>
 
-        <v-card-subtitle>
-          Click the button to add new Patient.
-        </v-card-subtitle>
-
-        <v-card-actions>
-          <v-btn color="success" @click="newPatient">Add</v-btn>
-        </v-card-actions>
       </v-card>
     </div>
   </div>
