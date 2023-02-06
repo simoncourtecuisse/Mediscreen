@@ -7,11 +7,11 @@
 ____________________
 
 # Mediscreen Application
-> -- _Mediscreen is a Spring Boot application. This is a medical management application_ --
+> -- _Mediscreen is a Spring Boot application that is specialized in detecting risk factors for disease._ --
 
 ## Architecture
 
-The architecture Overview of TourGuide:
+The architecture Overview of Mediscreen:
 
 ![Screenshot](Architecture.png)
 
