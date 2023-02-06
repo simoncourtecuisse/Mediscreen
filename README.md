@@ -7,7 +7,7 @@
 ____________________
 
 # Mediscreen Application
-> -- _Mediscreen is a Spring Boot application. This is a medical management application _ --
+> -- _Mediscreen is a Spring Boot application. This is a medical management application_ --
 
 ## Architecture
 
