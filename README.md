@@ -2,6 +2,8 @@
 ![Maven](https://img.shields.io/badge/MAVEN-%23005384?style=for-the-badge&logo=maven&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-green?style=for-the-badge&logo=MongoDB&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-cyan?style=for-the-badge&logo=Docker&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-9cf?style=for-the-badge&logo=MySQL&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-ge?style=for-the-badge&logo=Docker&logoColor=white)
 
 
 
