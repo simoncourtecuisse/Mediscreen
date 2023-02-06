@@ -3,7 +3,7 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-green?style=for-the-badge&logo=MongoDB&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-cyan?style=for-the-badge&logo=Docker&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-9cf?style=for-the-badge&logo=MySQL&logoColor=white)
-![Vue.js](https://img.shields.io/badge/Vue-%00A865?style=for-the-badge&logo=Vue&logoColor=#00A865)
+![Vue.js](https://img.shields.io/badge/Vue-success?style=for-the-badge&logo=Vue&logoColor=#00A865)
 
 
 
