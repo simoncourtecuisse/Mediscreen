@@ -13,7 +13,7 @@ ____________________
 
 The architecture Overview of Mediscreen:
 
-![Screenshot](Architecture.png)
+![Screenshot](schemaMediscreen.png)
 
 
 ## To install
