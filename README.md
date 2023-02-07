@@ -25,7 +25,7 @@ The architecture Overview of Mediscreen:
 - Java 11 : https://www.oracle.com/java/technologies/downloads/#license-lightbox
 - maven (installed with IDE)
 - git (installed with IDE)
-- Docker : 
+- Docker : https://docs.docker.com/docker-for-windows/install/
 
 ### Steps
 - clone repository
