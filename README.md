@@ -23,14 +23,15 @@ The architecture Overview of Mediscreen:
 ## To install
 ### Prerequisites
 - Java 11 : https://www.oracle.com/java/technologies/downloads/#license-lightbox
-- gradle (installed with IDE)
+- maven (installed with IDE)
 - git (installed with IDE)
+- Docker : 
 
 ### Steps
 - clone repository
-`git clone https://github.com/simoncourtecuisse/TourGuide.git`
+`git clone https://github.com/simoncourtecuisse/Mediscreen.git`
 
-- create gradle configuration in IDE for build/run
+- Launch the command for generate the JARs : `mvn clean install`
 
 ## Run the application
 
