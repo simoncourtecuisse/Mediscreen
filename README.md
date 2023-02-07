@@ -32,6 +32,11 @@ The architecture Overview of Mediscreen:
 `git clone https://github.com/simoncourtecuisse/Mediscreen.git`
 
 - Launch the command for generate the JARs : `mvn clean install`
+- Build each image using the DockerFile included in each micro-service folder (must be in the right folder to launch the command) :
+`docker build -t mediscreen-patient .
+docker build -t mediscreen-patienthistory .
+docker build -t mediscreen-report .
+docker build -t mediscreen-ui .`
 
 ## Run the application
 
