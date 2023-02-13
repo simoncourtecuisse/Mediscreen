@@ -13,6 +13,12 @@ ____________________
 # Mediscreen Application
 > -- _Mediscreen is a Spring Boot application that is specialized in detecting risk factors for disease._ --
 
+#### Mediscreen Demo
+https://user-images.githubusercontent.com/28982674/218467474-f0d246e8-828f-45fa-994f-6a590ccbf079.mp4
+
+
+
+
 ## Architecture
 
 The architecture Overview of Mediscreen:
