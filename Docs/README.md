@@ -1,4 +1,4 @@
 Rapport de Tests: 
 ![Screenshot](patientTestRapport.png)
-![Screenshot](patientHistoryTestRapport.png)
+![Screenshot](.png)
 ![Screenshot](reportTestRapport.png)
