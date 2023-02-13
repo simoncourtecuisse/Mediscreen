@@ -38,10 +38,6 @@ public class ReportController {
     @PostMapping("/familyName")
     public ResponseEntity<?> getFamily(@RequestParam("lastName") String lastName) {
         List<PatientModel> family = reportService.getPatientByFamily(lastName);
-//        List<RiskLevel> familyStream = family.stream()
-//                       .map(PatientModel::getId)
-//                       .map(reportService::calculRisk)
-//                .collect(Collectors.toList());
         List<String> familyStream = family.stream()
                 .map(patientModel -> {
                     RiskLevel risk = reportService.calculRisk(patientModel.getId());
@@ -53,28 +49,6 @@ public class ReportController {
                             "diabetes assessment is: " + risk;
                 })
                 .collect(Collectors.toList());
-//                       .map(PatientModel::getId)
-//                       .map(reportService::calculRisk)
-//                               .collect(Collectors.toList());
-
-
-
-     //   family.forEach(m->m.setRiskLevel(reportService.calculRisk(m.getId())));
-
-
-//        map((patientmodel) -> {
-//                    risk = calculRisk(patientmodel.getId());
-//                    return 'patientId : ' + patientmodel.getId() + : ' risk is ': + risk;
-//                }
-
-//        List<RiskLevel> familyRisk = reportService.calculRisk(familyStream);
-//
-//        familyStream.forEach(reportService::calculRisk);
-//
-//
-//
-//        getDiabetesAssessment(familyStream);
-//        List<RiskLevel> familyRisk = reportService.calculRisk(familyStream.stream().map(PatientModel::getId).collect(Collectors.toList()));
         System.out.println(familyStream);
         System.out.println(family);
         if (family.isEmpty()) {
@@ -84,22 +58,4 @@ public class ReportController {
         LOGGER.info("Success find the {} family" + lastName);
         return new ResponseEntity<>(familyStream, HttpStatus.OK);
     }
-//    @PostMapping("/familyName")
-//    public ResponseEntity<?> getFamily(@RequestParam("lastName") String lastName) {
-//        System.out.println(lastName);
-//        List<PatientModel> family = reportService.getPatientByFamily(lastName);
-//        family.forEach(m->m.setRiskLevel(reportService.calculRisk(m.getId())));
-////        List<RiskLevel> familyStream = family.stream()
-////                        .map(PatientModel::getId)
-////                        .map(reportService::calculRisk)
-////                .collect(Collectors.toList());
-//
-//        System.out.println(family);
-//        if (family.isEmpty()) {
-//            LOGGER.error("Failed to get patients with this family Name.");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//        LOGGER.info("Success find the {} family" + lastName);
-//        return new ResponseEntity<>(family, HttpStatus.OK);
-//    }
 }
