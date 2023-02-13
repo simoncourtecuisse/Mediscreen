@@ -17,7 +17,7 @@ ____________________
 
 The architecture Overview of Mediscreen:
 
-![Screenshot](https://github.com/simoncourtecuisse/Mediscreen/blob/main2.0/Docs/)
+![Screenshot](https://github.com/simoncourtecuisse/Mediscreen/blob/main2.0/Docs/schemaMediscreen.png)
 
 ## To install
 ### Prerequisites
