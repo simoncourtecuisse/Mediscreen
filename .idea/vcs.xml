@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Client-UI/vue-js-client-crud" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/OldClient-UI/vue-js-client-crud" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Patients" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mediscreen-ui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/test-mediscreen-ui" vcs="Git" />
+  </component>
+</project>
