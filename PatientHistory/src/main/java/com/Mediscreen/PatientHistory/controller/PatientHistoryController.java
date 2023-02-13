@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin(origins = {"http://localhost:8080", "${report.cross}"}, allowedHeaders = "*")
 @CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*")
 @RestController
 @RequestMapping("/patientHistory")
